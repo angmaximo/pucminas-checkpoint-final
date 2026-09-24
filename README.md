@@ -22,28 +22,28 @@ Este repositório consolida a evolução prática desenvolvida ao longo da pós-
 
 ### [Checkpoint 1: Primeira Função Serverless](./checkpoint-1)
 - **Objetivo:** Introdução ao modelo de computação sem servidor.
-- **Tecnologias:** Cloud Functions / Cloud Run, Python/Node.js.
-- **Descrição:** Implementação de uma API minimalista orientada a eventos ou requisições HTTP, demonstrando as vantagens de elasticidade e ausência de gerenciamento de infraestrutura física.
+- **Tecnologias:** Cloud Run, Cloud Storage, Python/Node.js.
+- **Descrição:** Implementação de uma aplicação minimalista, parfa atender requisições HTTP, demonstrando as vantagens de elasticidade e ausência de gerenciamento de infraestrutura física.
 
-### [Checkpoint 2: Persistência e Gerenciamento de Dados](./checkpoint-2)
-- **Objetivo:** Integrar a camada serverless com serviços gerenciados de armazenamento.
-- **Tecnologias:** Firestore / Cloud SQL / Cloud Storage.
-- **Descrição:** Evolução da API para realizar operações de leitura, escrita e consulta em bancos de dados em nuvem, tratando variáveis de ambiente e segurança de credenciais.
+### [Checkpoint 2: Serviços de Mensagens Assíncronos](./checkpoint-2)
+- **Objetivo:** Criar a aplicação do checkpoint1 para responder a requisições event-driven, atráves de mensageria.
+- **Tecnologias:** Pub/Sub
+- **Descrição:** Evolução da API para gerar requisições acionadas por eventos.
 
-### [Checkpoint 3: Processamento Assíncrono e Mensageria](./checkpoint-3)
-- **Objetivo:** Desacoplar componentes utilizando arquitetura orientada a eventos (*Event-Driven Architecture*).
-- **Tecnologias:** Google Cloud Pub/Sub, Cloud Functions.
+### [Checkpoint 3: Orquestração de Fluxo de Execução](./checkpoint-3)
+- **Objetivo:** Orquestrar fluxo tópico pub/sub e da aplicação publicada no Cloud Run. (*Event-Driven Architecture*).
+- **Tecnologias:** Google Cloud Pub/Sub, Workflows.
 - **Descrição:** Implementação de produtores e consumidores de mensagens para garantir resiliência, tolerância a falhas e escalabilidade horizontal em picos de acesso.
 
-### [Checkpoint 4: Infraestrutura como Código (IaC) e Automação](./checkpoint-4)
-- **Objetivo:** Automatizar o provisionamento de recursos e padronizar o ciclo de entrega.
-- **Tecnologias:** Terraform ou scripts de automação de deploy.
+### [Checkpoint 4: Monitoramento de Eventos](./checkpoint-4)
+- **Objetivo:** Monitorar os eventos gerados pela aplicação e nos tópicos de mensagens, usando serviços de observabilidade.
+- **Tecnologias:** Google CLoud Monitoring e Logging.
 - **Descrição:** Definição declarativa da infraestrutura na nuvem, garantindo reprodutibilidade, versionamento do ambiente e agilidade no fluxo de CI/CD.
 
-### [Checkpoint 5: Observabilidade e Monitoramento](./checkpoint-5)
-- **Objetivo:** Validar o ecossistema em produção e auditar o comportamento da aplicação.
-- **Tecnologias:** Google Cloud Logging, Cloud Monitoring.
-- **Descrição:** Monitoramento de métricas de desempenho, rastreamento de exceções e inspeção em tempo real dos logs gerados pelos serviços.
+### [Checkpoint 5: Deploy usando CI/CD](./checkpoint-5)
+- **Objetivo:** Criar uma esteira CI/CD para publicação e realilzações de testes de estrtura e segurança do código.
+- **Tecnologias:** Github Actions.
+- **Descrição:** Publicar o código no repositório e realizar as validações de segurança, gerando artefatos..
 
 ---
 

@@ -13,40 +13,114 @@ ARQUITETURA SERVERLESS
 2. CHECKPOINT 1: Fundamentos e Primeira Função Serverless (Tempo estimado: 45 segundos)
 ----------------------------------------------------------------------
 - Objetivo: Introdução ao modelo de computação sem servidor, subindo a primeira função/API baseada em nuvem.
-- Destaques para falar no vídeo:
-  * Explique brevemente o problema resolvido ou o gatilho inicial configurado.
-  * Mostre rapidamente o código da função (ex: Cloud Function / Cloud Run inicial).
-  * Comente sobre a vantagem da elasticidade e ausência de gerenciamento de servidores físicos.
+- Execução: Abrir a URL no navegador:
+  https://pucminas-upload-114476064778.us-central1.run.app/
 
 
-3. CHECKPOINT 2: Evolução, Integração de Dados ou Persistência (Tempo estimado: 45 segundos)
+3. CHECKPOINT 2: Serviços de Mensagens Assíncronos (Tempo estimado: 45 segundos)
 ----------------------------------------------------------------------
-- Objetivo: Expandir o escopo do Checkpoint 1 integrando a função serverless com um banco de dados gerenciado ou armazenamento em nuvem.
-- Destaques para falar no vídeo:
-  * Demonstre como a aplicação faz a persistência ou leitura de dados (ex: Firestore, Cloud SQL ou Cloud Storage).
-  * Explique o tratamento de variáveis de ambiente e segredos de forma segura no ambiente serverless.
+- Objetivo: Criar a aplicação do checkpoint1 para responder a requisições event-driven, atráves de mensageria.
+- Execução:
+  Publicar mensagens no Pub/sub:
+Publicar mensagens
+for i in {1..20}; do
+  gcloud pubsub topics publish images-topic \
+    --message="teste-$i" \
+    --project=pucminas-507118
+done
+
+Criar backlog de fila acumulada
+for i in {1..200}; do
+  gcloud pubsub topics publish images-topic \
+    --message="backlog-$i" \
+    --project=pucminas-507118
+done
+
+Ver Logs na linha de comando:
+
+gcloud logging read \
+  'resource.type="cloud_run_revision" AND resource.labels.service_name="event-images"' \
+  --project=pucminas-507118 \
+  --limit=50 \
+  --format=json
 
 
-4. CHECKPOINT 3: Processamento Assíncrono e Mensageria (Tempo estimado: 45 segundos)
+4. CHECKPOINT 3: Orquestração de Fluxo de Execução (Tempo estimado: 45 segundos)
 ----------------------------------------------------------------------
-- Objetivo: Desacoplamento de serviços utilizando filas, tópicos de mensageria ou eventos em tempo real.
-- Destaques para falar no vídeo:
-  * Apresente a arquitetura orientada a eventos (Event-Driven Architecture) utilizando recursos como o Google Pub/Sub.
-  * Explique como uma função dispara um evento de forma assídua e outra consome a mensagem, garantindo resiliência e escalabilidade horizontal.
+- Objetivo: Orquestrar fluxo tópico pub/sub e da aplicação publicada no Cloud Run.
+- Execução:
+  
 
 
-5. CHECKPOINT 4: Automação, Deploy Contínuo ou Infraestrutura como Código (Tempo estimado: 45 segundos)
+5. CHECKPOINT 4: Monitoramento de Eventos (Tempo estimado: 45 segundos)
 ----------------------------------------------------------------------
-- Objetivo: Automatizar o provisionamento da infraestrutura ou o processo de entrega contínua da aplicação.
-- Destaques para falar no vídeo:
-  * Destaque o uso de ferramentas de IaC (Infraestrutura como Código, como Terraform) ou pipelines de deploy automatizado.
-  * Mostre como a infraestrutura descrita em código garante reprodutibilidade e agilidade no ciclo de vida de desenvolvimento.
+- Objetivo: Monitorar os eventos gerados pela aplicação e nos tópicos de mensagens, usando serviços de observabilidade.
+- Execução:
+  Logs de requisição:
+Latência
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"message": {"data": "dGVzdGU="}}' \
+  https://event-images-114476064778.us-central1.run.app/
 
 
-6. CHECKPOINT 5: Monitoramento, Logs e Fechamento (Tempo estimado: 1 minuto)
+ERRO 500
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"message": {"data": "INVALID_BASE64"}}' \
+  https://event-images-114476064778.us-central1.run.app/
+
+
+Cloud Run
+Requisição, latência, autoscaling)
+for i in {1..20}; do
+  curl -X POST \
+    -H "Content-Type: application/json" \
+    -d '{"message": {"data": "dGVzdGU="}}' \
+    https://event-images-114476064778.us-central1.run.app/
+done
+
+Requisições inválidas (erro 500)
+curl -X POST \
+  -H "Content-Type: application/json" \
+  -d '{"message": {"data": "INVALID_BASE64"}}' \
+  https://event-images-114476064778.us-central1.run.app/
+
+Pub/Sub
+Publicar mensagens
+for i in {1..20}; do
+  gcloud pubsub topics publish images-topic \
+    --message="teste-$i" \
+    --project=pucminas-507118
+done
+
+Publicar mensagens inválidas
+gcloud pubsub topics publish images-topic \
+  --message="INVALID" \
+  --project=pucminas-507118
+
+Criar backlog (testar alerta de fila acumulada)
+for i in {1..200}; do
+  gcloud pubsub topics publish images-topic \
+    --message="backlog-$i" \
+    --project=pucminas-507118
+done
+
+COnfirmar eventos chegando no pub/sub
+gcloud pubsub subscriptions pull logs-cloudrun-sub \
+  --limit=10 \
+  --auto-ack \
+  --project=pucminas-507118
+
+Workflows log
+gcloud pubsub subscriptions pull logs-workflow-sub \
+  --limit=10 \
+  --auto-ack \
+  --project=pucminas-507118
+
+
+6. CHECKPOINT 5: Deploy usando CI/CD (Tempo estimado: 1 minuto)
 ----------------------------------------------------------------------
 - Objetivo: Validação em ambiente de produção, inspeção de logs e observabilidade da arquitetura serverless.
-- Destaques para falar no vídeo:
-  * Demonstre o serviço rodando no Google Cloud (Cloud Run / Cloud Functions).
-  * Abra o terminal ou a interface do Google Cloud Logging e execute o comando de leitura de logs (ex: `gcloud logging read ...`) para provar que a aplicação está respondendo e registrando eventos corretamente.
-  * Conclua com as considerações finais sobre os aprendizados consolidados durante a pós-graduação.
+- Execução: Realizar um commit no repositório.
+  
