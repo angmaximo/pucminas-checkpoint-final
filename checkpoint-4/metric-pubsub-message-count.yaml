@@ -1,0 +1,7 @@
+name: pubsub_message_count
+filter: |
+  resource.type="pubsub_topic"
+metricDescriptor:
+  name: custom.googleapis.com/pubsub/message_count
+  metricKind: DELTA
+  valueType: INT64

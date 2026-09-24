@@ -1,0 +1,16 @@
+{
+  "name": "event_images_latency_v2",
+  "description": "Latência do Cloud Run Event-Images",
+  "filter": "resource.type=\"cloud_run_revision\" AND resource.labels.service_name=\"event-images\" AND httpRequest.latency:*",
+  "metricDescriptor": {
+    "metricKind": "DELTA",
+    "valueType": "DISTRIBUTION",
+    "unit": "s"
+  },
+  "valueExtractor": "EXTRACT(httpRequest.latency)",
+  "bucketOptions": {
+    "explicitBuckets": {
+      "bounds": [0.1, 0.5, 1, 2, 5, 10]
+    }
+  }
+}

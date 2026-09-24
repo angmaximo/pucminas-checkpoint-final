@@ -1,0 +1,3 @@
+{
+  "valueExtractor": "EXTRACT(duration(httpRequest.latency))"
+}

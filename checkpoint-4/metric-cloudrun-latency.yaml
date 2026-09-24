@@ -1,0 +1,9 @@
+name: cloudrun_event_images_latency
+filter: |
+  resource.type="cloud_run_revision"
+  resource.labels.service_name="Event-Images"
+metricDescriptor:
+  name: custom.googleapis.com/cloudrun/event_images/latency
+  metricKind: GAUGE
+  valueType: DOUBLE
+  unit: "ms"

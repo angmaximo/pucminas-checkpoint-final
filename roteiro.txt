@@ -1,0 +1,52 @@
+======================================================================
+ROTEIRO DE APRESENTAÇÃO - TRABALHO FINAL (PÓS-GRADUAÇÃO PUC MINAS)
+ARQUITETURA SERVERLESS
+======================================================================
+
+1. INTRODUÇÃO GERAL (Tempo estimado: 45 segundos)
+----------------------------------------------------------------------
+- Olá, professor(a). Meu nome é Angelo, e este é o vídeo de apresentação do trabalho final da nossa pós-graduação, estruturado de forma unificada no repositório `pucminas-checkpoint-final`.
+- Ao longo da disciplina, desenvolvemos uma evolução arquitetural baseada em paradigmas Serverless, aplicando conceitos desde a ideação e implementação inicial de funções até orquestrações avançadas, mensuração de desempenho, segurança e monitoramento em nuvem (Google Cloud Platform).
+- A seguir, apresento o panorama de cada um dos cinco checkpoints que compõem este ecossistema.
+
+
+2. CHECKPOINT 1: Fundamentos e Primeira Função Serverless (Tempo estimado: 45 segundos)
+----------------------------------------------------------------------
+- Objetivo: Introdução ao modelo de computação sem servidor, subindo a primeira função/API baseada em nuvem.
+- Destaques para falar no vídeo:
+  * Explique brevemente o problema resolvido ou o gatilho inicial configurado.
+  * Mostre rapidamente o código da função (ex: Cloud Function / Cloud Run inicial).
+  * Comente sobre a vantagem da elasticidade e ausência de gerenciamento de servidores físicos.
+
+
+3. CHECKPOINT 2: Evolução, Integração de Dados ou Persistência (Tempo estimado: 45 segundos)
+----------------------------------------------------------------------
+- Objetivo: Expandir o escopo do Checkpoint 1 integrando a função serverless com um banco de dados gerenciado ou armazenamento em nuvem.
+- Destaques para falar no vídeo:
+  * Demonstre como a aplicação faz a persistência ou leitura de dados (ex: Firestore, Cloud SQL ou Cloud Storage).
+  * Explique o tratamento de variáveis de ambiente e segredos de forma segura no ambiente serverless.
+
+
+4. CHECKPOINT 3: Processamento Assíncrono e Mensageria (Tempo estimado: 45 segundos)
+----------------------------------------------------------------------
+- Objetivo: Desacoplamento de serviços utilizando filas, tópicos de mensageria ou eventos em tempo real.
+- Destaques para falar no vídeo:
+  * Apresente a arquitetura orientada a eventos (Event-Driven Architecture) utilizando recursos como o Google Pub/Sub.
+  * Explique como uma função dispara um evento de forma assídua e outra consome a mensagem, garantindo resiliência e escalabilidade horizontal.
+
+
+5. CHECKPOINT 4: Automação, Deploy Contínuo ou Infraestrutura como Código (Tempo estimado: 45 segundos)
+----------------------------------------------------------------------
+- Objetivo: Automatizar o provisionamento da infraestrutura ou o processo de entrega contínua da aplicação.
+- Destaques para falar no vídeo:
+  * Destaque o uso de ferramentas de IaC (Infraestrutura como Código, como Terraform) ou pipelines de deploy automatizado.
+  * Mostre como a infraestrutura descrita em código garante reprodutibilidade e agilidade no ciclo de vida de desenvolvimento.
+
+
+6. CHECKPOINT 5: Monitoramento, Logs e Fechamento (Tempo estimado: 1 minuto)
+----------------------------------------------------------------------
+- Objetivo: Validação em ambiente de produção, inspeção de logs e observabilidade da arquitetura serverless.
+- Destaques para falar no vídeo:
+  * Demonstre o serviço rodando no Google Cloud (Cloud Run / Cloud Functions).
+  * Abra o terminal ou a interface do Google Cloud Logging e execute o comando de leitura de logs (ex: `gcloud logging read ...`) para provar que a aplicação está respondendo e registrando eventos corretamente.
+  * Conclua com as considerações finais sobre os aprendizados consolidados durante a pós-graduação.

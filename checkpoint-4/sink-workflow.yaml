@@ -1,0 +1,5 @@
+name: sink-workflow
+destination: pubsub.googleapis.com/projects/pucminas-507118/topics/logs-workflow
+filter: |
+  resource.type="workflows.googleapis.com/Workflow"
+  resource.labels.workflow_id="meu-workflow"

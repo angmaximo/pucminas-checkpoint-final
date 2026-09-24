@@ -1,0 +1,10 @@
+name: projects/pucminas-507118/metrics/cloudrun_event_images_latency
+metricDescriptor:
+  name: custom.googleapis.com/cloudrun/event_images/latency
+  description: "Latência do Cloud Run Event-Images"
+  metricKind: GAUGE
+  valueType: DOUBLE
+  unit: "s"
+valueExtractor: "EXTRACT(httpRequest.latency)"
+labelExtractors: {}
+filter: 'resource.type="cloud_run_revision" AND resource.labels.service_name="event-images"'

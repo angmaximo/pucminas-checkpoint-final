@@ -1,0 +1,5 @@
+name: sink-cloudrun-event-images
+destination: pubsub.googleapis.com/projects/pucminas-507118/topics/logs-cloudrun
+filter: |
+  resource.type="cloud_run_revision"
+  resource.labels.service_name="Event-Images"

@@ -1,0 +1,5 @@
+type: "email"
+displayName: "Email Alertas"
+labels:
+  email_address: "angmms@gmail.com"
+enabled: true

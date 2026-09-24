@@ -1,0 +1,8 @@
+name: workflow_errors
+filter: |
+  resource.type="workflows.googleapis.com/Workflow"
+  severity>=ERROR
+metricDescriptor:
+  name: custom.googleapis.com/workflow/errors
+  metricKind: DELTA
+  valueType: INT64

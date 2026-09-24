@@ -1,0 +1,12 @@
+displayName: "Erros no Workflow"
+combiner: "OR"
+conditions:
+  - displayName: "Workflow com erro"
+    conditionThreshold:
+      filter: |
+        resource.type="global"
+        metric.type="custom.googleapis.com/workflow/errors"
+      comparison: COMPARISON_GT
+      thresholdValue: 1
+      duration: "0s"
+

@@ -1,0 +1,24 @@
+displayName: "Dashboard – Ambiente Acadêmico"
+gridLayout:
+  columns: 2
+  widgets:
+    - title: "Latência Cloud Run"
+      xyChart:
+        dataSets:
+          - timeSeriesQuery:
+              timeSeriesFilter:
+                filter: metric.type="custom.googleapis.com/cloudrun/event_images/latency"
+
+    - title: "Erros Workflow"
+      xyChart:
+        dataSets:
+          - timeSeriesQuery:
+              timeSeriesFilter:
+                filter: metric.type="custom.googleapis.com/workflow/errors"
+
+    - title: "Mensagens Pub/Sub"
+      xyChart:
+        dataSets:
+          - timeSeriesQuery:
+              timeSeriesFilter:
+                filter: metric.type="custom.googleapis.com/pubsub/message_count"

@@ -1,0 +1,21 @@
+apiVersion: eventarc.cnrm.cloud.google.com/v1beta1
+kind: EventarcTrigger
+metadata:
+  name: workflow-trigger-images-topic
+spec:
+  location: us-central1
+  projectRef:
+    external: ${PROJECT_ID}
+
+  matchingCriteria:
+    - attribute: type
+      value: google.cloud.pubsub.topic.v1.messagePublished
+
+  destination:
+    workflowRef:
+      name: meu-workflow
+
+  transport:
+    pubsub:
+      topicRef:
+        name: images-topic

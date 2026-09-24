@@ -1,0 +1,83 @@
+main:
+  params: [event]
+  steps:
+    - init:
+        assign:
+          - project_id: ${sys.get_env("GOOGLE_CLOUD_PROJECT_ID")}
+          - region: "us-central1"
+          - cloud_run_url: '${"https://" + region + "-" + project_id + ".a.run.app/event-images"}'
+          - dlq_topic: '${"projects/" + project_id + "/topics/dlq-topic"}'
+          - max_retries: 3
+          - attempt: 0
+          - bucket: "pucminas-upload"
+          - source_topic: "images-topic"
+          - error_message: null
+
+    - retry_loop:
+        try:
+          steps:
+            - call_cloud_run:
+                call: http.post
+                args:
+                  url: ${cloud_run_url}
+                  auth:
+                    type: OIDC
+                  body: ${event}
+                result: response
+
+            - check_status:
+                switch:
+                  - condition: ${response.status >= 200 and response.status < 300}
+                    return:
+                      status: "SUCCESS"
+                      cloud_run_response: ${response}
+                  - condition: true
+                    raise: '${"Erro no Cloud Run: status " + string(response.status)}'
+
+        except:
+          as: err
+          steps:
+            - capture_error:
+                assign:
+                  - error_message: ${err}
+                  - attempt: ${attempt + 1}
+
+            - check_retry:
+                switch:
+                  - condition: ${attempt < max_retries}
+                    next: wait_and_retry
+                  - condition: true
+                    next: publish_dlq
+
+    - wait_and_retry:
+        steps:
+          - wait_before_retry:
+              call: sys.sleep
+              args:
+                seconds: 5
+          - go_back:
+              next: retry_loop
+
+    - publish_dlq:
+        steps:
+          - prepare_payload:
+              assign:
+                - dlq_payload:
+                    event: ${event}
+                    error: ${error_message}
+                    source_topic: ${source_topic}
+                    bucket: ${bucket}
+          - send_to_pubsub:
+              call: googleapis.pubsub.v1.projects.topics.publish
+              args:
+                topic: ${dlq_topic}
+                body:
+                  messages:
+                    - data: ${base64.encode(text.encode(json.encode(dlq_payload)))}
+              result: dlq_result
+
+          - return_dlq:
+              return:
+                status: "FAILED_SENT_TO_DLQ"
+                error: ${error_message}
+                dlq_publish: ${dlq_result}
