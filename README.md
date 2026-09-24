@@ -9,11 +9,11 @@ Este repositório consolida a evolução prática desenvolvida ao longo da pós-
 
 ```text
 .
-├── checkpoint-1/     # Fundamentos e primeira função Serverless
-├── checkpoint-2/     # Persistência de dados e integração com storage/banco
-├── checkpoint-3/     # Processamento assíncrono e mensageria (Event-Driven)
-├── checkpoint-4/     # Infraestrutura como Código (IaC) / Automação de deploy
-└── checkpoint-5/     # Observabilidade, monitoramento e inspeção de logs
+├── checkpoint-1/     # Primeira função Serverless
+├── checkpoint-2/     # Serviços de Mensageria Assíncronos
+├── checkpoint-3/     # Orquestração de Fluxos (Event-Driven)
+├── checkpoint-4/     # Monitoramento de Eventos
+└── checkpoint-5/     # Deploys usando CI/CD
 ```
 
 ---
@@ -30,7 +30,7 @@ Este repositório consolida a evolução prática desenvolvida ao longo da pós-
 - **Tecnologias:** Pub/Sub
 - **Descrição:** Evolução da API para gerar requisições acionadas por eventos.
 
-### [Checkpoint 3: Orquestração de Fluxo de Execução](./checkpoint-3)
+### [Checkpoint 3: Orquestração de Fluxos](./checkpoint-3)
 - **Objetivo:** Orquestrar fluxo tópico pub/sub e da aplicação publicada no Cloud Run. (*Event-Driven Architecture*).
 - **Tecnologias:** Google Cloud Pub/Sub, Workflows.
 - **Descrição:** Implementação de produtores e consumidores de mensagens para garantir resiliência, tolerância a falhas e escalabilidade horizontal em picos de acesso.
